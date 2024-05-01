@@ -1,55 +1,36 @@
-import { eq } from "drizzle-orm";
-import { parseBuffer } from "music-metadata";
-import { readFile } from "node:fs/promises";
+import { and, inArray, like } from "drizzle-orm";
 import process from "node:process";
 import { db } from "../lib/drizzle/database.mjs";
 import { Tracks } from "../lib/drizzle/schema.mjs";
 import { walkAudioFiles } from "../lib/walk.mjs";
+import { scanAction } from "./scan.mjs";
 
 /**
  * @typedef Options
  * @property {string} [genre]
+ * @property {boolean} [skipScan]
  *
  * @param {string} path
  * @param {Options} opts
  */
 export async function runAction(path, opts) {
-  for await (const file of walkAudioFiles(path)) {
-    const tags = await getTags(file);
-    if (!isMatchingFilters(tags, opts)) continue;
+  if (!opts.skipScan) await scanAction(path);
 
-    process.stdout.write(`${file}\n`);
+  // TODO: store walk
+  const files = [];
+  for await (const file of walkAudioFiles(path)) files.push(file);
+
+  /** @type {import("drizzle-orm").SQLWrapper[]} */
+  const wheres = [];
+
+  if (opts.genre) wheres.push(like(Tracks.genre, `%${opts.genre}%`));
+
+  const results = await db
+    .select({ path: Tracks.path })
+    .from(Tracks)
+    .where(and(inArray(Tracks.path, files), ...wheres));
+
+  for (const res of results) {
+    process.stdout.write(`${res.path}\n`);
   }
-}
-
-/**
- * @param {string} file
- * @param {Promise<import("music-metadata").IAudioMetadata>} file
- */
-async function getTags(file) {
-  const existingTracks = await db.select({ tags: Tracks.tags }).from(Tracks).where(eq(Tracks.path, file)).limit(1);
-
-  if (existingTracks.length) {
-    return JSON.parse(existingTracks[0].tags);
-  }
-
-  const buffer = await readFile(file);
-  const tags = await parseBuffer(buffer);
-
-  await db.insert(Tracks).values({ tags: JSON.stringify(tags), genre: tags.common.genre?.join(",") ?? "", path: file });
-
-  return tags;
-}
-
-/**
- * @param {import("music-metadata").IAudioMetadata} tags
- * @param {Omit<Options, 'format'>} opts
- */
-function isMatchingFilters(tags, opts) {
-  if (opts.genre !== undefined) {
-    const isMatching = tags.common.genre?.some((g) => g.includes(String(opts.genre)));
-    if (!isMatching) return false;
-  }
-
-  return true;
 }
