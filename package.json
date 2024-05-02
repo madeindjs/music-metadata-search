@@ -1,17 +1,31 @@
 {
-  "name": "music-finder",
+  "name": "music-metadata-search",
   "version": "1.0.0",
-  "description": "",
+  "description": "Search in your local music library using quick filter on metadata tags",
   "main": "cli.mjs",
   "scripts": {
     "cli": "node cli.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "db:generate": "drizzle-kit generate:sqlite"
   },
   "bin": {
-    "music-finder": "cli.mjs"
+    "music-metadata-search": "cli.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "id3",
+    "cli",
+    "music",
+    "metadata",
+    "meta",
+    "audio",
+    "tag",
+    "tags",
+    "ID3",
+    "ID3v1",
+    "ID3v2",
+    "Vorbis",
+    "ogg",
+    "flac"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
