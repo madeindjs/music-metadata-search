@@ -7,7 +7,7 @@ Search in your local music library using quick filter on metadata tags.
 My main usage is to find musics I want to play and pipe it to [mpv](https://mpv.io/).
 
 ```sh
-node cli.mjs filter ~/Musique --where "genre like '%sport%'" | mpv --playlist=-
+music-metadata-search search ~/Musique --where "genre like '%sport%'" | mpv --playlist=-
 ```
 
 It will:
