@@ -9,7 +9,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @param {Options} opts
  */
 export async function scanAction(path, opts) {
-  const scanId = await scanAudioFiles(path);
+  const scanId = await scanAudioFiles(path, { verbose: opts.verbose });
   const files = await findScannedTrackPathForScanId(scanId);
 
   for await (const file of files) process.stdout.write(`${file}\n`);

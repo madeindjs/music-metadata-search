@@ -1,4 +1,4 @@
-import { createArgument, program } from "commander";
+import { createArgument, createOption, program } from "commander";
 import { readFile } from "node:fs/promises";
 import { cwd } from "node:process";
 import { filterAction } from "./commands/filter.mjs";
@@ -12,7 +12,7 @@ const pathOption = createArgument("[path]", "The directory of local files");
 pathOption.defaultValue = cwd();
 pathOption.defaultValueDescription = "The current working directory";
 
-program.option("-v, --verbose", "display more logs");
+const verboseOption = createOption("-v, --verbose", "display more logs");
 
 program
   .command("scan")
@@ -26,6 +26,7 @@ program
   .option("-g, --genre [genre]", "Genre of the track")
   .option("-a, --artists [artist]", "Artist of the track")
   .option("-w, --where [where]", "SQL filter where expression")
+  .addOption(verboseOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(filterAction);
 

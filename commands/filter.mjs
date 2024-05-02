@@ -18,7 +18,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @param {Options} opts
  */
 export async function filterAction(path, opts) {
-  const scanId = await scanAudioFiles(path);
+  const scanId = await scanAudioFiles(path, { verbose: opts.verbose });
 
   /** @type {import("drizzle-orm").SQLWrapper[]} */
   const wheres = [];
