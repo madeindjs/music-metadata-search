@@ -1,7 +1,24 @@
 {
   "name": "music-metadata-search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Search in your local music library using quick filter on metadata tags",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madeindjs/music-metadata-search.git"
+  },
+  "homepage": "https://github.com/madeindjs/music-metadata-search",
+  "author": {
+    "email": "alexandre@rsseau.fr",
+    "name": "Alexandre Rousseau",
+    "url": "https://rsseau.fr"
+  },
+  "bugs": {
+    "url": "https://github.com/madeindjs/music-metadata-search/issues"
+  },
+  "engines": {
+    "node": ">=20.8.0"
+  },
+  "type": "module",
   "main": "cli.mjs",
   "scripts": {
     "cli": "node cli.mjs",
@@ -26,7 +43,6 @@
     "ogg",
     "flac"
   ],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^9.6.0",
