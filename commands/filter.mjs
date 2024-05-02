@@ -1,7 +1,7 @@
-import { and, eq, inArray, like, sql } from "drizzle-orm";
+import { and, eq, like, sql } from "drizzle-orm";
 import process from "node:process";
 import { db } from "../lib/drizzle/database.mjs";
-import { Tracks } from "../lib/drizzle/schema.mjs";
+import { ScansTracks, Tracks } from "../lib/drizzle/schema.mjs";
 import { scanAudioFiles } from "../lib/scan.mjs";
 
 /**
@@ -18,8 +18,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @param {Options} opts
  */
 export async function filterAction(path, opts) {
-  const files = [];
-  for await (const file of scanAudioFiles(path)) files.push(file);
+  const scanId = await scanAudioFiles(path);
 
   /** @type {import("drizzle-orm").SQLWrapper[]} */
   const wheres = [];
@@ -34,7 +33,8 @@ export async function filterAction(path, opts) {
   const results = await db
     .select({ path: Tracks.path })
     .from(Tracks)
-    .where(and(inArray(Tracks.path, files), ...wheres));
+    .innerJoin(ScansTracks, eq(ScansTracks.trackId, Tracks.id))
+    .where(and(eq(ScansTracks.scanId, scanId), ...wheres));
 
   for (const res of results) {
     process.stdout.write(`${res.path}\n`);
