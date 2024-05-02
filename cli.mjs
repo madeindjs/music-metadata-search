@@ -1,27 +1,33 @@
-import { program } from "commander";
+import { createArgument, program } from "commander";
 import { readFile } from "node:fs/promises";
 import { cwd } from "node:process";
-import { runAction } from "./commands/run.mjs";
+import { filterAction } from "./commands/filter.mjs";
 import { scanAction } from "./commands/scan.mjs";
 
 const packageJson = JSON.parse(await readFile(new URL("./package.json", import.meta.url), { encoding: "utf-8" }));
 
 program.name(packageJson.name).description(packageJson.description).version(packageJson.version);
 
+const pathOption = createArgument("[path]", "The directory of local files");
+pathOption.defaultValue = cwd();
+pathOption.defaultValueDescription = "The current working directory";
+
+program.option("-v, --verbose", "display more logs");
+
 program
   .command("scan")
-  .description("Scan the audio file and save the tags")
+  .description("Scan the audio file and save them in the cache")
   .argument("[path]", "The directory of local files", cwd())
   .action(scanAction);
 
 program
-  .command("run")
-  .description("add files and fetch torrents")
+  .command("filter")
+  .description("filters tracks by metadata in the given path")
   .option("-g, --genre [genre]", "Genre of the track")
-  .option("-a, --artists [artists]", "Artists of the track")
-  .option("-s, --skip-scan [skipScan]", "Skip the local directory scan of tags")
+  .option("-a, --artists [artist]", "Artist of the track")
+  .option("-w, --where [where]", "SQL filter where expression")
   .argument("[path]", "The directory of local files", cwd())
-  .action(runAction);
+  .action(filterAction);
 
 program.showHelpAfterError(true);
 
