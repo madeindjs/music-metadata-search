@@ -13,12 +13,13 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @property {number} [year]
  * @property {string} [where]
  * @property {boolean} [verbose]
+ * @property {number} cacheTtl
  *
  * @param {string} path
  * @param {Options} opts
  */
 export async function filterAction(path, opts) {
-  const scanId = await scanAudioFiles(path, { verbose: opts.verbose });
+  const scanId = await scanAudioFiles(path, { verbose: opts.verbose, cacheTtl: opts.cacheTtl });
 
   /** @type {import("drizzle-orm").SQLWrapper[]} */
   const wheres = [];

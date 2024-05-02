@@ -14,9 +14,15 @@ pathOption.defaultValueDescription = "The current working directory";
 
 const verboseOption = createOption("-v, --verbose", "display more logs");
 
+const ttlOption = createOption("-t, --cache-ttl", "time to live for the cache (in seconds)");
+ttlOption.defaultValue = 3_600;
+ttlOption.defaultValueDescription = "1 hour";
+
 program
   .command("scan")
   .description("Scan the audio file and save them in the cache")
+  .addOption(verboseOption)
+  .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(scanAction);
 
@@ -27,6 +33,7 @@ program
   .option("-a, --artists [artist]", "Artist of the track")
   .option("-w, --where [where]", "SQL filter where expression")
   .addOption(verboseOption)
+  .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(filterAction);
 
