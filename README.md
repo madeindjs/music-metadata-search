@@ -1,4 +1,4 @@
-# Music finder
+# Music Metadata Search
 
 [![npm version](https://badge.fury.io/js/music-metadata-search.svg)](https://badge.fury.io/js/music-metadata-search)
 
