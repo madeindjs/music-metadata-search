@@ -37,12 +37,14 @@ Arguments:
 
 Options:
   -V, --version               output the version number
-  -g, --genre [genre]         Genre of the track  using `LIKE` operator
+  -g, --genre [genre]         Genre of the track`LIKE` operator
                               It's an alias of: `--where 'genre LIKE "%Electro%"'`
-  -a, --artists [artist]      Artist of the track  using `LIKE` operator
+  -a, --artist [artist]       Artist of the track`LIKE` operator
                               It's an alias of: `--where 'artist LIKE "%Daft%"'`
+  -b, --album [album]         Album of the track`LIKE` operator
+                              It's an alias of: `--where 'album LIKE "%Discovery%"'`
   -y, --year [year]           Year of the track using `=` operator
-                              It's an alias of: `--where 'year = 2024'`
+                              It's an alias of: `--where 'year = 2001'`
   -t, --title [title]         Title of the track to search using `LIKE` operator
                               It's an alias of: `--where 'title LIKE "%Verdis%"'`
   -w, --where [where]         SQL WHERE expression

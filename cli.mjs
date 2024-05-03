@@ -14,7 +14,7 @@ const logLevelOption = createOption("-l, --log-level [logLevel]", "Log level")
   .choices(Object.values(logger.levels.labels))
   .default("fatal");
 
-const ttlOption = createOption("-c, --cache-ttl", "time to live for the cache (in seconds)");
+const ttlOption = createOption("--cache-ttl", "time to live for the cache (in seconds)");
 ttlOption.defaultValue = 3_600;
 ttlOption.defaultValueDescription = "1 hour";
 
@@ -32,15 +32,19 @@ const filterableColumns = [
 program
   .option(
     "-g, --genre [genre]",
-    ["Genre of the track  using `LIKE` operator", "It's an alias of: `--where 'genre LIKE \"%Electro%\"'`"].join("\n")
+    ["Genre of the track`LIKE` operator", "It's an alias of: `--where 'genre LIKE \"%Electro%\"'`"].join("\n")
   )
   .option(
-    "-a, --artists [artist]",
-    ["Artist of the track  using `LIKE` operator", "It's an alias of: `--where 'artist LIKE \"%Daft%\"'`"].join("\n")
+    "-a, --artist [artist]",
+    ["Artist of the track`LIKE` operator", "It's an alias of: `--where 'artist LIKE \"%Daft%\"'`"].join("\n")
+  )
+  .option(
+    "-b, --album [album]",
+    ["Album of the track`LIKE` operator", "It's an alias of: `--where 'album LIKE \"%Discovery%\"'`"].join("\n")
   )
   .option(
     "-y, --year [year]",
-    ["Year of the track using `=` operator", "It's an alias of: `--where 'year = 2024'`"].join("\n")
+    ["Year of the track using `=` operator", "It's an alias of: `--where 'year = 2001'`"].join("\n")
   )
   .option(
     "-t, --title [title]",

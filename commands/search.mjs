@@ -7,11 +7,11 @@ import { scanAudioFiles } from "../lib/scan.mjs";
 
 /**
  * @typedef Options
- * @property {string} [artist]
- * @property {string} [album]
+ * @property {string} [artist] Artist of the track`LIKE` operator
+ * @property {string} [album] Album of the track`LIKE` operator
  * @property {string} [title] Title of the track to search using `LIKE` operator
- * @property {string} [genre]
- * @property {number} [year]
+ * @property {string} [genre] Genre of the track`LIKE` operator
+ * @property {number} [year] Year of the track using `=` operator
  * @property {string} [where] SQL WHERE expression
  * @property {string} [sort] SQL ORDER BY expression
  * @property {string[]} ext Extensions of Audio files to scan
