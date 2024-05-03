@@ -30,7 +30,7 @@ npm i music-metadata-search
 ```txt
 Usage: music-metadata-search [options] [path]
 
-filters tracks by metadata in the given path
+Search in your local music library using quick filters on metadata tags
 
 Arguments:
   path                        The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
@@ -51,6 +51,7 @@ Options:
   -s, --sort [order]          SQL ORDER BY expression
                               You can order on columns: album, artist, title, genre, year.
                               Example: genre DESC
+  --ext [ext...]              Extensions of Audio files to scan (default: [".mp3",".flac",".m4a",".ogg",".aac"])
   -l, --log-level [logLevel]  Log level (choices: "trace", "debug", "info", "warn", "error", "fatal", default: "fatal")
   -c, --cache-ttl             time to live for the cache (in seconds)
   -h, --help                  display help for command

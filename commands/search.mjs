@@ -14,6 +14,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @property {number} [year]
  * @property {string} [where]
  * @property {string} [sort]
+ * @property {string[]} ext Extensions of Audio files to scan
  * @property {string} logLevel
  * @property {number} cacheTtl
  *
@@ -22,7 +23,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  */
 export async function filterAction(path, opts) {
   logger.level = opts.logLevel;
-  const scanId = await scanAudioFiles(path, { cacheTtl: opts.cacheTtl });
+  const scanId = await scanAudioFiles(path, { cacheTtl: opts.cacheTtl, ext: opts.ext });
 
   /** @type {import("drizzle-orm").SQLWrapper[]} */
   const wheres = [];

@@ -18,6 +18,9 @@ const ttlOption = createOption("-c, --cache-ttl", "time to live for the cache (i
 ttlOption.defaultValue = 3_600;
 ttlOption.defaultValueDescription = "1 hour";
 
+const extensionsListOption = createOption("--ext [ext...]", "Extensions of Audio files to scan");
+extensionsListOption.defaultValue = [".mp3", ".flac", ".m4a", ".ogg", ".aac"];
+
 const filterableColumns = [
   Tracks.album.name,
   Tracks.artist.name,
@@ -27,7 +30,6 @@ const filterableColumns = [
 ];
 
 program
-  .description("filters tracks by metadata in the given path")
   .option(
     "-g, --genre [genre]",
     ["Genre of the track", "It's an alias of: --where 'genre LIKE \"%Electro%\"'"].join("\n")
@@ -57,6 +59,7 @@ program
       `Example: ${Tracks.genre.name} DESC`,
     ].join("\n")
   )
+  .addOption(extensionsListOption)
   .addOption(logLevelOption)
   .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
