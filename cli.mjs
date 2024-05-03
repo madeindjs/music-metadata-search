@@ -2,6 +2,7 @@
 import { createOption, program } from "commander";
 import { readFile } from "node:fs/promises";
 import process, { cwd } from "node:process";
+import { FILTERABLE_COLUMNS, QUERYABLE_COLUMNS } from "./lib/constants.mjs";
 import { Tracks } from "./lib/drizzle/schema.mjs";
 import { logger } from "./lib/logger.mjs";
 import { generateM3uPlaylist } from "./lib/m3u.mjs";
@@ -26,16 +27,16 @@ const formatOption = createOption("-f, --format [format]", "Output format")
   .choices(["txt", "json", "m3u"])
   .default("txt");
 
-const filterableColumns = [
-  Tracks.album.name,
-  Tracks.artist.name,
-  Tracks.title.name,
-  Tracks.genre.name,
-  Tracks.year.name,
-  Tracks.mtime.name,
-];
-
 program
+  .option("-q, --query [genre]", `Search the term everywhere (in ${QUERYABLE_COLUMNS.join(", ")})`)
+  .option(
+    "-w, --where [where]",
+    [
+      "SQL WHERE expression",
+      `You can filters on columns: ${FILTERABLE_COLUMNS.join(", ")}`,
+      `Example: \`${Tracks.genre.name} LIKE "%Rock%"\``,
+    ].join("\n")
+  )
   .option(
     "-g, --genre [genre]",
     ["Genre of the track`LIKE` operator", "It's an alias of: `--where 'genre LIKE \"%Electro%\"'`"].join("\n")
@@ -60,19 +61,12 @@ program
     ].join("\n")
   )
   .option("-l, --limit [limit]", "Limit the number of tracks returned")
-  .option(
-    "-w, --where [where]",
-    [
-      "SQL WHERE expression",
-      `You can filters on columns: ${filterableColumns.join(", ")}`,
-      `Example: \`${Tracks.genre.name} LIKE "%Rock%"\``,
-    ].join("\n")
-  )
+
   .option(
     "-s, --sort [order]",
     [
       "SQL ORDER BY expression",
-      `You can order on columns: ${filterableColumns.join(", ")}.`,
+      `You can order on columns: ${FILTERABLE_COLUMNS.join(", ")}.`,
       `Example: \`${Tracks.genre.name} DESC\``,
     ].join("\n")
   )

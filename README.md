@@ -63,6 +63,10 @@ Arguments:
 
 Options:
   -V, --version                    output the version number
+  -q, --query [genre]              Search the term everywhere (in album, artist, title, genre)
+  -w, --where [where]              SQL WHERE expression
+                                   You can filters on columns: album, artist, title, genre, year, mtime
+                                   Example: `genre LIKE "%Rock%"`
   -g, --genre [genre]              Genre of the track`LIKE` operator
                                    It's an alias of: `--where 'genre LIKE "%Electro%"'`
   -a, --artist [artist]            Artist of the track`LIKE` operator
@@ -74,9 +78,6 @@ Options:
   -t, --title [title]              Title of the track to search using `LIKE` operator
                                    It's an alias of: `--where 'title LIKE "%Verdis%"'`
   -l, --limit [limit]              Limit the number of tracks returned
-  -w, --where [where]              SQL WHERE expression
-                                   You can filters on columns: album, artist, title, genre, year, mtime
-                                   Example: `genre LIKE "%Rock%"`
   -s, --sort [order]               SQL ORDER BY expression
                                    You can order on columns: album, artist, title, genre, year, mtime.
                                    Example: `genre DESC`
