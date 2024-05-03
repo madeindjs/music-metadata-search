@@ -7,7 +7,7 @@ Search in your local music library using quick filter on metadata tags.
 My main usage is to find musics I want to play and pipe it to [mpv](https://mpv.io/).
 
 ```sh
-music-metadata-search search ~/Musique --where "genre like '%sport%'" | mpv --playlist=-
+music-metadata-search ~/Musique --where "genre like '%sport%'" | mpv --playlist=-
 ```
 
 It will:
@@ -28,37 +28,38 @@ npm i music-metadata-search
 ### filter
 
 ```txt
-Usage: music-metadata-search search [options] [path]
+Usage: music-metadata-search [options] [path]
 
 filters tracks by metadata in the given path
 
 Arguments:
-  path                    The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
+  path                        The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
 
 Options:
-  -g, --genre [genre]     Genre of the track
-                          It's an alias of: --where 'genre LIKE "%Electro%"'
-  -a, --artists [artist]  Artist of the track
-                          It's an alias of: --where 'artist LIKE "%Daft%"'
-  -y, --year [year]       Year of the track
-                          It's an alias of: --where 'year = 2024'
-  -t, --title [title]     Title of the track
-                          It's an alias of: --where 'title LIKE "%Verdis%"'
-  -w, --where [where]     SQL WHERE expression
-                          You can filters on columns: album, artist, title, genre, year
-                          Example: genre LIKE "%Rock%"
-  -s, --sort [order]      SQL ORDER BY expression
-                          You can order on columns: album, artist, title, genre, year.
-                          Example: genre DESC
-  -l, --log-level         Log level (choices: "trace", "debug", "info", "warn", "error", "fatal")
-  -c, --cache-ttl         time to live for the cache (in seconds)
-  -h, --help              display help for command
+  -V, --version               output the version number
+  -g, --genre [genre]         Genre of the track
+                              It's an alias of: --where 'genre LIKE "%Electro%"'
+  -a, --artists [artist]      Artist of the track
+                              It's an alias of: --where 'artist LIKE "%Daft%"'
+  -y, --year [year]           Year of the track
+                              It's an alias of: --where 'year = 2024'
+  -t, --title [title]         Title of the track
+                              It's an alias of: --where 'title LIKE "%Verdis%"'
+  -w, --where [where]         SQL WHERE expression
+                              You can filters on columns: album, artist, title, genre, year
+                              Example: genre LIKE "%Rock%"
+  -s, --sort [order]          SQL ORDER BY expression
+                              You can order on columns: album, artist, title, genre, year.
+                              Example: genre DESC
+  -l, --log-level [logLevel]  Log level (choices: "trace", "debug", "info", "warn", "error", "fatal", default: "fatal")
+  -c, --cache-ttl             time to live for the cache (in seconds)
+  -h, --help                  display help for command
 ```
 
 Example
 
 ```sh
-music-metadata-search filter ~/Musique/ -g 'sport'
+music-metadata-search ~/Musique/ -g 'sport'
 ```
 
 will output

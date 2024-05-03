@@ -1,6 +1,6 @@
 {
   "name": "music-metadata-search",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Search in your local music library using quick filter on metadata tags",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "url": "https://github.com/madeindjs/music-metadata-search/issues"
   },
   "engines": {
-    "node": ">=20.8.0"
+    "node": ">=20.0.0"
   },
   "type": "module",
   "main": "cli.mjs",
