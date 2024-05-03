@@ -1,4 +1,6 @@
-import { findScannedTrackPathForScanId } from "../lib/drizzle/queries.mjs";
+import { eq } from "drizzle-orm";
+import { db } from "../lib/drizzle/database.mjs";
+import { ScansTracks, Tracks } from "../lib/drizzle/schema.mjs";
 import { logger } from "../lib/logger.mjs";
 import { scanAudioFiles } from "../lib/scan.mjs";
 
@@ -16,4 +18,14 @@ export async function scanAction(path, opts) {
   const files = await findScannedTrackPathForScanId(scanId);
 
   for await (const file of files) process.stdout.write(`${file}\n`);
+}
+
+async function findScannedTrackPathForScanId(scanId) {
+  const rows = await db
+    .select({ path: Tracks.path })
+    .from(ScansTracks)
+    .innerJoin(Tracks, eq(Tracks.id, ScansTracks.trackId))
+    .where(eq(ScansTracks.scanId, scanId));
+
+  return rows.map((r) => r.path);
 }
