@@ -53,6 +53,40 @@ music-metadata-search ~/music/ -a 'daft' --where 'year < 2000' -f json | jq '[.[
 
 Use `music-metadata-search --help` for more information.
 
+```
+Usage: music-metadata-search [options] [path]
+
+Search in your local music library using quick filters on metadata tags
+
+Arguments:
+  path                             The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
+
+Options:
+  -V, --version                    output the version number
+  -g, --genre [genre]              Genre of the track`LIKE` operator
+                                   It's an alias of: `--where 'genre LIKE "%Electro%"'`
+  -a, --artist [artist]            Artist of the track`LIKE` operator
+                                   It's an alias of: `--where 'artist LIKE "%Daft%"'`
+  -b, --album [album]              Album of the track`LIKE` operator
+                                   It's an alias of: `--where 'album LIKE "%Discovery%"'`
+  -y, --year [year]                Year of the track using `=` operator
+                                   It's an alias of: `--where 'year = 2001'`
+  -t, --title [title]              Title of the track to search using `LIKE` operator
+                                   It's an alias of: `--where 'title LIKE "%Verdis%"'`
+  -l, --limit [limit]              Limit the number of tracks returned
+  -w, --where [where]              SQL WHERE expression
+                                   You can filters on columns: album, artist, title, genre, year, mtime
+                                   Example: `genre LIKE "%Rock%"`
+  -s, --sort [order]               SQL ORDER BY expression
+                                   You can order on columns: album, artist, title, genre, year, mtime.
+                                   Example: `genre DESC`
+  -f, --format [format]            Output format (choices: "txt", "json", "m3u", default: "txt")
+  --ext [ext...]                   Extensions of Audio files to scan (default: [".mp3",".flac",".m4a",".ogg",".aac"])
+  --log-level [logLevel]           Log level (choices: "trace", "debug", "info", "warn", "error", "fatal", default: "fatal")
+  --cache-scan-ttl [cacheScanTtl]  time to live for the cache (in seconds) (default: 1 hour)
+  -h, --help                       display help for command
+```
+
 ## Lib usage
 
 ```js

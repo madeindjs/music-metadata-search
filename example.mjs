@@ -11,4 +11,5 @@ const tracks = await search("/home/alexandre/Musique", {
   title: "ery",
   year: 2001,
   where: 'title LIKE "%ery"',
+  limit: 10,
 });

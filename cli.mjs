@@ -11,7 +11,7 @@ const packageJson = JSON.parse(await readFile(new URL("./package.json", import.m
 
 program.name(packageJson.name).description(packageJson.description).version(packageJson.version);
 
-const logLevelOption = createOption("-l, --log-level [logLevel]", "Log level")
+const logLevelOption = createOption("--log-level [logLevel]", "Log level")
   .choices(Object.values(logger.levels.labels))
   .default("fatal");
 
@@ -59,6 +59,7 @@ program
       "It's an alias of: `--where 'title LIKE \"%Verdis%\"'`",
     ].join("\n")
   )
+  .option("-l, --limit [limit]", "Limit the number of tracks returned")
   .option(
     "-w, --where [where]",
     [
