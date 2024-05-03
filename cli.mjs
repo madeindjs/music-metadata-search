@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import { createOption, program } from "commander";
 import { readFile } from "node:fs/promises";
-import { cwd } from "node:process";
-import { filterAction } from "./commands/search.mjs";
+import process, { cwd } from "node:process";
 import { Tracks } from "./lib/drizzle/schema.mjs";
 import { logger } from "./lib/logger.mjs";
+import { search } from "./lib/search.mjs";
 
 const packageJson = JSON.parse(await readFile(new URL("./package.json", import.meta.url), { encoding: "utf-8" }));
 
@@ -73,7 +73,13 @@ program
   .addOption(logLevelOption)
   .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
-  .action(filterAction);
+  .action(async (path, opts) => {
+    const results = await search(path, opts);
+
+    for (const res of results) {
+      process.stdout.write(`${res.path}\n`);
+    }
+  });
 
 program.showHelpAfterError(true);
 

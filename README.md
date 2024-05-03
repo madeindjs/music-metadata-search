@@ -25,8 +25,6 @@ npm i music-metadata-search
 
 ## CLI usage
 
-### filter
-
 ```txt
 Usage: music-metadata-search [options] [path]
 
@@ -78,4 +76,23 @@ will output
 /home/alexandre/Musique/Queen/2011 -  The Ultimate Best Of Queen/15 Don’t Stop Me Now.mp3
 /home/alexandre/Musique/Survivor/1985 -  Eye of the Tiger/01 Eye of the Tiger.mp3
 /home/alexandre/Musique/Various Artists/2015-08-21 -  .Wave/09 Vanilla - Shutterbugg.mp3
+```
+
+## Lib usage
+
+```js
+import { search } from "music-metadata-search";
+
+const tracks = await search("/home/alexandre/Musique", {
+  album: "Discovery",
+  artist: "Daft",
+  cacheScanTtl: 3_600,
+  ext: [".flac"],
+  genre: "French touch",
+  logLevel: "silent",
+  sort: "title desc",
+  title: "ery",
+  year: 2001,
+  where: 'title LIKE "%ery"',
+});
 ```

@@ -19,7 +19,7 @@
     "node": ">=20.0.0"
   },
   "type": "module",
-  "main": "cli.mjs",
+  "main": "lib.mjs",
   "scripts": {
     "cli": "node cli.mjs",
     "db:generate": "drizzle-kit generate:sqlite"
