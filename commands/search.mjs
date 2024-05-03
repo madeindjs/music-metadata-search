@@ -12,6 +12,7 @@ import { scanAudioFiles } from "../lib/scan.mjs";
  * @property {string} [genre]
  * @property {number} [year]
  * @property {string} [where]
+ * @property {string} [sort]
  * @property {boolean} [verbose]
  * @property {number} cacheTtl
  *
@@ -35,7 +36,8 @@ export async function filterAction(path, opts) {
     .select({ path: Tracks.path })
     .from(Tracks)
     .innerJoin(ScansTracks, eq(ScansTracks.trackId, Tracks.id))
-    .where(and(eq(ScansTracks.scanId, scanId), ...wheres));
+    .where(and(eq(ScansTracks.scanId, scanId), ...wheres))
+    .orderBy(opts.sort ? sql.raw(opts.sort) : Tracks.id);
 
   for (const res of results) {
     process.stdout.write(`${res.path}\n`);

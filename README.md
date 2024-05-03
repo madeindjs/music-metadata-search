@@ -30,17 +30,26 @@ npm i music-metadata-search
 ```txt
 Usage: music-metadata-search search [options] [path]
 
-search tracks by metadata in the given path
+filters tracks by metadata in the given path
 
 Arguments:
   path                    The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
 
 Options:
   -g, --genre [genre]     Genre of the track
+                          It's an alias of: --where 'genre LIKE "%Electro%"'
   -a, --artists [artist]  Artist of the track
+                          It's an alias of: --where 'artist LIKE "%Daft%"'
   -y, --year [year]       Year of the track
+                          It's an alias of: --where 'year = 2024'
   -t, --title [title]     Title of the track
-  -w, --where [where]     SQL filter where expression
+                          It's an alias of: --where 'title LIKE "%Verdis%"'
+  -w, --where [where]     SQL WHERE expression
+                          You can filters on columns: album, artist, title, genre, year
+                          Example: genre LIKE "%Rock%"
+  -s, --sort [order]      SQL ORDER BY expression
+                          You can order on columns: album, artist, title, genre, year.
+                          Example: genre DESC
   -v, --verbose           display more logs
   -c, --cache-ttl         time to live for the cache (in seconds)
   -h, --help              display help for command
