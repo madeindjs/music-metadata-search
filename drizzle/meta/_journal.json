@@ -22,6 +22,13 @@
       "when": 1714741440586,
       "tag": "0002_dizzy_nehzno",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1714764222223,
+      "tag": "0003_closed_moon_knight",
+      "breakpoints": true
     }
   ]
 }

@@ -14,7 +14,7 @@ const logLevelOption = createOption("-l, --log-level [logLevel]", "Log level")
   .choices(Object.values(logger.levels.labels))
   .default("fatal");
 
-const ttlOption = createOption("--cache-ttl", "time to live for the cache (in seconds)");
+const ttlOption = createOption("--cache-scan-ttl [cacheScanTtl]", "time to live for the cache (in seconds)");
 ttlOption.defaultValue = 3_600;
 ttlOption.defaultValueDescription = "1 hour";
 
