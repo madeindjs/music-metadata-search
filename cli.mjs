@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import process, { cwd } from "node:process";
 import { Tracks } from "./lib/drizzle/schema.mjs";
 import { logger } from "./lib/logger.mjs";
+import { generateM3uPlaylist } from "./lib/m3u.mjs";
 import { search } from "./lib/search.mjs";
 
 const packageJson = JSON.parse(await readFile(new URL("./package.json", import.meta.url), { encoding: "utf-8" }));
@@ -21,12 +22,17 @@ ttlOption.defaultValueDescription = "1 hour";
 const extensionsListOption = createOption("--ext [ext...]", "Extensions of Audio files to scan");
 extensionsListOption.defaultValue = [".mp3", ".flac", ".m4a", ".ogg", ".aac"];
 
+const formatOption = createOption("-f, --format [format]", "Output format")
+  .choices(["txt", "json", "m3u"])
+  .default("txt");
+
 const filterableColumns = [
   Tracks.album.name,
   Tracks.artist.name,
   Tracks.title.name,
   Tracks.genre.name,
   Tracks.year.name,
+  Tracks.mtime.name,
 ];
 
 program
@@ -69,6 +75,7 @@ program
       `Example: \`${Tracks.genre.name} DESC\``,
     ].join("\n")
   )
+  .addOption(formatOption)
   .addOption(extensionsListOption)
   .addOption(logLevelOption)
   .addOption(ttlOption)
@@ -76,8 +83,18 @@ program
   .action(async (path, opts) => {
     const results = await search(path, opts);
 
-    for (const res of results) {
-      process.stdout.write(`${res.path}\n`);
+    switch (opts.format) {
+      case "json":
+        process.stdout.write(JSON.stringify(results));
+        break;
+
+      case "txt":
+        for (const res of results) process.stdout.write(`${res.path}\n`);
+        break;
+
+      case "m3u":
+        process.stdout.write(generateM3uPlaylist(results));
+        break;
     }
   });
 
