@@ -32,23 +32,29 @@ const filterableColumns = [
 program
   .option(
     "-g, --genre [genre]",
-    ["Genre of the track", "It's an alias of: --where 'genre LIKE \"%Electro%\"'"].join("\n")
+    ["Genre of the track  using `LIKE` operator", "It's an alias of: `--where 'genre LIKE \"%Electro%\"'`"].join("\n")
   )
   .option(
     "-a, --artists [artist]",
-    ["Artist of the track", "It's an alias of: --where 'artist LIKE \"%Daft%\"'"].join("\n")
+    ["Artist of the track  using `LIKE` operator", "It's an alias of: `--where 'artist LIKE \"%Daft%\"'`"].join("\n")
   )
-  .option("-y, --year [year]", ["Year of the track", "It's an alias of: --where 'year = 2024'"].join("\n"))
+  .option(
+    "-y, --year [year]",
+    ["Year of the track using `=` operator", "It's an alias of: `--where 'year = 2024'`"].join("\n")
+  )
   .option(
     "-t, --title [title]",
-    ["Title of the track", "It's an alias of: --where 'title LIKE \"%Verdis%\"'"].join("\n")
+    [
+      "Title of the track to search using `LIKE` operator",
+      "It's an alias of: `--where 'title LIKE \"%Verdis%\"'`",
+    ].join("\n")
   )
   .option(
     "-w, --where [where]",
     [
       "SQL WHERE expression",
       `You can filters on columns: ${filterableColumns.join(", ")}`,
-      `Example: ${Tracks.genre.name} LIKE "%Rock%"`,
+      `Example: \`${Tracks.genre.name} LIKE "%Rock%"\``,
     ].join("\n")
   )
   .option(
@@ -56,7 +62,7 @@ program
     [
       "SQL ORDER BY expression",
       `You can order on columns: ${filterableColumns.join(", ")}.`,
-      `Example: ${Tracks.genre.name} DESC`,
+      `Example: \`${Tracks.genre.name} DESC\``,
     ].join("\n")
   )
   .addOption(extensionsListOption)

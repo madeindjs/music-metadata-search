@@ -37,20 +37,20 @@ Arguments:
 
 Options:
   -V, --version               output the version number
-  -g, --genre [genre]         Genre of the track
-                              It's an alias of: --where 'genre LIKE "%Electro%"'
-  -a, --artists [artist]      Artist of the track
-                              It's an alias of: --where 'artist LIKE "%Daft%"'
-  -y, --year [year]           Year of the track
-                              It's an alias of: --where 'year = 2024'
-  -t, --title [title]         Title of the track
-                              It's an alias of: --where 'title LIKE "%Verdis%"'
+  -g, --genre [genre]         Genre of the track  using `LIKE` operator
+                              It's an alias of: `--where 'genre LIKE "%Electro%"'`
+  -a, --artists [artist]      Artist of the track  using `LIKE` operator
+                              It's an alias of: `--where 'artist LIKE "%Daft%"'`
+  -y, --year [year]           Year of the track using `=` operator
+                              It's an alias of: `--where 'year = 2024'`
+  -t, --title [title]         Title of the track to search using `LIKE` operator
+                              It's an alias of: `--where 'title LIKE "%Verdis%"'`
   -w, --where [where]         SQL WHERE expression
                               You can filters on columns: album, artist, title, genre, year
-                              Example: genre LIKE "%Rock%"
+                              Example: `genre LIKE "%Rock%"`
   -s, --sort [order]          SQL ORDER BY expression
                               You can order on columns: album, artist, title, genre, year.
-                              Example: genre DESC
+                              Example: `genre DESC`
   --ext [ext...]              Extensions of Audio files to scan (default: [".mp3",".flac",".m4a",".ogg",".aac"])
   -l, --log-level [logLevel]  Log level (choices: "trace", "debug", "info", "warn", "error", "fatal", default: "fatal")
   -c, --cache-ttl             time to live for the cache (in seconds)
