@@ -50,7 +50,7 @@ Options:
   -s, --sort [order]      SQL ORDER BY expression
                           You can order on columns: album, artist, title, genre, year.
                           Example: genre DESC
-  -v, --verbose           display more logs
+  -l, --log-level         Log level (choices: "trace", "debug", "info", "warn", "error", "fatal")
   -c, --cache-ttl         time to live for the cache (in seconds)
   -h, --help              display help for command
 ```

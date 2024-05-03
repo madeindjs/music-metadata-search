@@ -5,6 +5,7 @@ import { cwd } from "node:process";
 import { scanAction } from "./commands/scan.mjs";
 import { filterAction } from "./commands/search.mjs";
 import { Tracks } from "./lib/drizzle/schema.mjs";
+import { logger } from "./lib/logger.mjs";
 
 const packageJson = JSON.parse(await readFile(new URL("./package.json", import.meta.url), { encoding: "utf-8" }));
 
@@ -14,7 +15,9 @@ const pathOption = createArgument("[path]", "The directory of local files");
 pathOption.defaultValue = cwd();
 pathOption.defaultValueDescription = "The current working directory";
 
-const verboseOption = createOption("-v, --verbose", "display more logs");
+const logLevelOption = createOption("-l, --log-level [logLevel]", "Log level")
+  .choices(Object.values(logger.levels.labels))
+  .default("fatal");
 
 const ttlOption = createOption("-c, --cache-ttl", "time to live for the cache (in seconds)");
 ttlOption.defaultValue = 3_600;
@@ -23,7 +26,7 @@ ttlOption.defaultValueDescription = "1 hour";
 program
   .command("scan")
   .description("Scan the audio file and save them in the cache")
-  .addOption(verboseOption)
+  .addOption(logLevelOption)
   .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(scanAction);
@@ -68,7 +71,7 @@ program
       `Example: ${Tracks.genre.name} DESC`,
     ].join("\n")
   )
-  .addOption(verboseOption)
+  .addOption(logLevelOption)
   .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(filterAction);
