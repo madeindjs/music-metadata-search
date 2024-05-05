@@ -29,6 +29,13 @@
       "when": 1714764222223,
       "tag": "0003_closed_moon_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1714895758946,
+      "tag": "0004_known_selene",
+      "breakpoints": true
     }
   ]
 }

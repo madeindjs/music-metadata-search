@@ -65,21 +65,31 @@ Options:
   -V, --version                    output the version number
   -q, --query [genre]              Search the term everywhere (in album, artist, title, genre)
   -w, --where [where]              SQL WHERE expression
-                                   You can filters on columns: album, artist, title, genre, year, mtime
-                                   Example: `genre LIKE "%Rock%"`
-  -g, --genre [genre]              Genre of the track`LIKE` operator
+                                   You can filters on columns: album, artist, title, genre, year, mtime, bpm, bitrate, duration
+                                   Example: `genre LIKE "%Rock%" AND duration between 60 AND 120`
+  -g, --genre [genre]              Filter by genre of the track using `LIKE` operator
                                    It's an alias of: `--where 'genre LIKE "%Electro%"'`
-  -a, --artist [artist]            Artist of the track`LIKE` operator
+  -a, --artist [artist]            Filter by artist of the track using `LIKE` operator
                                    It's an alias of: `--where 'artist LIKE "%Daft%"'`
-  -b, --album [album]              Album of the track`LIKE` operator
+  -b, --album [album]              Filter by album of the track using `LIKE` operator
                                    It's an alias of: `--where 'album LIKE "%Discovery%"'`
-  -y, --year [year]                Year of the track using `=` operator
-                                   It's an alias of: `--where 'year = 2001'`
+  -y, --year [year]                Filter by year of the track
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
+                                   operator
   -t, --title [title]              Title of the track to search using `LIKE` operator
                                    It's an alias of: `--where 'title LIKE "%Verdis%"'`
+  -d,--duration [duration]         Filter by duration of the track (in seconds)
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
+                                   operator
+  --bpm [bpm]                      Filter by BPM of the track
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
+                                   operator
+  --bitrate [bitrate]              Filter by bitrate of the track (in bits/seconds)
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
+                                   operator
   -l, --limit [limit]              Limit the number of tracks returned
   -s, --sort [order]               SQL ORDER BY expression
-                                   You can order on columns: album, artist, title, genre, year, mtime.
+                                   You can order on columns: album, artist, title, genre, year, mtime, bpm, bitrate, duration.
                                    Example: `genre DESC`
   -f, --format [format]            Output format (choices: "txt", "json", "m3u", default: "txt")
   --ext [ext...]                   Extensions of Audio files to scan (default: [".mp3",".flac",".m4a",".ogg",".aac"])
@@ -93,16 +103,40 @@ Options:
 ```js
 import { search } from "music-metadata-search";
 
-const tracks = await search("/home/alexandre/music", {
-  album: "Discovery",
+const tracks = await search("/home/alexandre/Musique/", {
+  // Filter artist of the track using `LIKE` operator
   artist: "Daft",
-  cacheScanTtl: 3_600,
+  // Extensions of Audio files to scan
   ext: [".flac"],
-  genre: "French touch",
-  logLevel: "silent",
+  // Log level for [pino](https://www.npmjs.com/package/pino) (default to `'silent'`)
+  logLevel: "debug",
+  // SQL ORDER BY expression
   sort: "title desc",
-  title: "ery",
-  year: 2001,
-  where: 'title LIKE "%ery"',
+  // Filter by title of the track to search using `LIKE` operator
+  title: "One",
+  // Limit the number of tracks returned
+  limit: 10,
 });
+
+console.log(tracks);
+/*
+[
+  {
+    path: '/home/alexandre/Musique/Daft Punk/2007-12-04 -  Alive 2007/08 One More Time _ Aerodynamic.flac',
+    title: 'One More Time / Aerodynamic',
+    genre: 'Electronic',
+    artist: 'Daft Punk',
+    album: 'Alive 2007',
+    year: 2007
+  },
+  {
+    path: '/home/alexandre/Musique/Daft Punk/2001-03-13 -  Discovery/01 One More Time.flac',
+    title: 'One More Time',
+    genre: 'House',
+    artist: 'Daft Punk',
+    album: 'Discovery',
+    year: 2001
+  }
+]
+*/
 ```
