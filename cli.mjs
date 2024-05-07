@@ -109,10 +109,11 @@ program.showHelpAfterError(true);
 program.parse();
 
 /**
- * @param {string | number} value
- * @returns {number | Range}
+ * @param {string | number | undefined} value
+ * @returns {number | Range | undefined}
  */
 function expandRange(value) {
+  if (value === undefined) return undefined;
   if (typeof value === "number") return value;
 
   const split = value.split("..");
