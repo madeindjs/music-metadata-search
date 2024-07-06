@@ -43,6 +43,13 @@
       "when": 1715280906525,
       "tag": "0005_nasty_punisher",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1720301981343,
+      "tag": "0006_thin_sprite",
+      "breakpoints": true
     }
   ]
 }

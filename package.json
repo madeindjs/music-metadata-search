@@ -1,6 +1,6 @@
 {
   "name": "music-metadata-search",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Search in your local music library using quick filters on metadata tags",
   "repository": {
     "type": "git",
