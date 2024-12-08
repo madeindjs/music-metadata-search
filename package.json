@@ -1,6 +1,6 @@
 {
   "name": "music-metadata-search",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Search in your local music library using quick filters on metadata tags",
   "repository": {
     "type": "git",
@@ -45,10 +45,10 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "better-sqlite3": "^9.6.0",
+    "@libsql/client": "^0.14.0",
     "commander": "^12.0.0",
-    "drizzle-orm": "^0.30.10",
-    "music-metadata": "^7.14.0",
+    "drizzle-orm": "^0.37.0",
+    "music-metadata": "^10.6.0",
     "pino": "^9.0.0",
     "pino-pretty": "^11.0.0"
   },
