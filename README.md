@@ -59,14 +59,14 @@ Usage: music-metadata-search [options] [path]
 Search in your local music library using quick filters on metadata tags
 
 Arguments:
-  path                             The directory of local files (default: "/home/alexandre/github/madeindjs/music-playlist-generator")
+  path                             The directory of local files (default: "/home/alexandre/github/madeindjs/music-metadata-search")
 
 Options:
   -V, --version                    output the version number
-  -q, --query [genre]              Search the term everywhere (in album, artist, title, genre)
+  -q, --query [genre]              Search the term everywhere (in album, artist, title, genre, comment)
   -w, --where [where]              SQL WHERE expression
-                                   You can filters on columns: album, artist, title, genre, year, mtime, bpm, bitrate, duration
-                                   Example: `genre LIKE "%Rock%" AND duration between 60 AND 120`
+                                   You can filters on columns: album, artist, title, genre, comment, year, mtime, bpm, bitrate, duration
+                                   Example: `genre LIKE "%Rock%"` AND duration between 60 AND 120
   -g, --genre [genre]              Filter by genre of the track using `LIKE` operator
                                    It's an alias of: `--where 'genre LIKE "%Electro%"'`
   -a, --artist [artist]            Filter by artist of the track using `LIKE` operator
@@ -74,22 +74,20 @@ Options:
   -b, --album [album]              Filter by album of the track using `LIKE` operator
                                    It's an alias of: `--where 'album LIKE "%Discovery%"'`
   -y, --year [year]                Filter by year of the track
-                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
-                                   operator
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN` operator
   -t, --title [title]              Title of the track to search using `LIKE` operator
                                    It's an alias of: `--where 'title LIKE "%Verdis%"'`
+  -c, --comment [comment]          Comment of the track to search using `LIKE` operator
+                                   It's an alias of: `--where 'comment LIKE "%Verdis%"'`
   -d,--duration [duration]         Filter by duration of the track (in seconds)
-                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
-                                   operator
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN` operator
   --bpm [bpm]                      Filter by BPM of the track
-                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
-                                   operator
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN` operator
   --bitrate [bitrate]              Filter by bitrate of the track (in bits/seconds)
-                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN`
-                                   operator
+                                   If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN` operator
   -l, --limit [limit]              Limit the number of tracks returned
   -s, --sort [order]               SQL ORDER BY expression
-                                   You can order on columns: album, artist, title, genre, year, mtime, bpm, bitrate, duration.
+                                   You can order on columns: album, artist, title, genre, comment, year, mtime, bpm, bitrate, duration.
                                    Example: `genre DESC`
   -f, --format [format]            Output format (choices: "txt", "json", "m3u", default: "txt")
   --ext [ext...]                   Extensions of Audio files to scan (default: [".mp3",".flac",".m4a",".ogg",".aac"])
