@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "989306cb-1d4c-48e0-a7c1-58585732db5b",
-  "prevId": "9148786d-271c-4624-9aba-c188402af4da",
   "tables": {
     "scans": {
       "name": "scans",
@@ -39,7 +37,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "scan_tracks": {
       "name": "scan_tracks",
@@ -78,32 +77,33 @@
         "scan_tracks_scanId_scans_id_fk": {
           "name": "scan_tracks_scanId_scans_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "scans",
           "columnsFrom": [
             "scanId"
           ],
+          "tableTo": "scans",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "scan_tracks_trackId_tracks_id_fk": {
           "name": "scan_tracks_trackId_tracks_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "tracks",
           "columnsFrom": [
             "trackId"
           ],
+          "tableTo": "tracks",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "tracks": {
       "name": "tracks",
@@ -211,13 +211,16 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "989306cb-1d4c-48e0-a7c1-58585732db5b",
+  "prevId": "9148786d-271c-4624-9aba-c188402af4da",
+  "views": {}
 }

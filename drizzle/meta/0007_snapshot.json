@@ -1,6 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
+  "id": "4a0638d5-f9e1-485a-989c-4a90f2518193",
+  "prevId": "989306cb-1d4c-48e0-a7c1-58585732db5b",
   "tables": {
     "scans": {
       "name": "scans",
@@ -77,28 +79,28 @@
         "scan_tracks_scanId_scans_id_fk": {
           "name": "scan_tracks_scanId_scans_id_fk",
           "tableFrom": "scan_tracks",
+          "tableTo": "scans",
           "columnsFrom": [
             "scanId"
           ],
-          "tableTo": "scans",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         },
         "scan_tracks_trackId_tracks_id_fk": {
           "name": "scan_tracks_trackId_tracks_id_fk",
           "tableFrom": "scan_tracks",
+          "tableTo": "tracks",
           "columnsFrom": [
             "trackId"
           ],
-          "tableTo": "tracks",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -157,6 +159,34 @@
           "notNull": false,
           "autoincrement": false
         },
+        "bpm": {
+          "name": "bpm",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bitrate": {
+          "name": "bitrate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sampleRate": {
+          "name": "sampleRate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "mtime": {
           "name": "mtime",
           "type": "integer",
@@ -164,6 +194,20 @@
           "notNull": true,
           "autoincrement": false,
           "default": 0
+        },
+        "musicbrainzArtistId": {
+          "name": "musicbrainzArtistId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "comment": {
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "createdAt": {
           "name": "createdAt",
@@ -180,12 +224,14 @@
       "checkConstraints": {}
     }
   },
+  "views": {},
   "enums": {},
   "_meta": {
+    "schemas": {},
     "tables": {},
     "columns": {}
   },
-  "id": "6b2c0bbe-1c94-424e-90f5-51c5df004335",
-  "prevId": "52e43dac-55f3-439e-bce6-e6965c7aa084",
-  "views": {}
+  "internal": {
+    "indexes": {}
+  }
 }

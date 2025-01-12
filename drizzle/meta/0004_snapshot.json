@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "65fa35a9-53c1-48de-bbb8-667b72b1b68a",
-  "prevId": "6b2c0bbe-1c94-424e-90f5-51c5df004335",
   "tables": {
     "scans": {
       "name": "scans",
@@ -39,7 +37,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "scan_tracks": {
       "name": "scan_tracks",
@@ -78,32 +77,33 @@
         "scan_tracks_scanId_scans_id_fk": {
           "name": "scan_tracks_scanId_scans_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "scans",
           "columnsFrom": [
             "scanId"
           ],
+          "tableTo": "scans",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "scan_tracks_trackId_tracks_id_fk": {
           "name": "scan_tracks_trackId_tracks_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "tracks",
           "columnsFrom": [
             "trackId"
           ],
+          "tableTo": "tracks",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "tracks": {
       "name": "tracks",
@@ -197,13 +197,16 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "65fa35a9-53c1-48de-bbb8-667b72b1b68a",
+  "prevId": "6b2c0bbe-1c94-424e-90f5-51c5df004335",
+  "views": {}
 }

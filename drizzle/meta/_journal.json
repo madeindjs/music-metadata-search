@@ -50,6 +50,13 @@
       "when": 1720301981343,
       "tag": "0006_thin_sprite",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1736708374831,
+      "tag": "0007_glossy_morlun",
+      "breakpoints": true
     }
   ]
 }

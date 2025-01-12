@@ -127,7 +127,8 @@ console.log(tracks);
     genre: 'Electronic',
     artist: 'Daft Punk',
     album: 'Alive 2007',
-    year: 2007
+    year: 2007,
+    comment: '#classic'
   },
   {
     path: '/home/alexandre/Musique/Daft Punk/2001-03-13 -  Discovery/01 One More Time.flac',
@@ -135,7 +136,8 @@ console.log(tracks);
     genre: 'House',
     artist: 'Daft Punk',
     album: 'Discovery',
-    year: 2001
+    year: 2001,
+    comment: '#classic #nrj'
   }
 ]
 */

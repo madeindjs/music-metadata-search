@@ -1,6 +1,6 @@
 {
   "name": "music-metadata-search",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Search in your local music library using quick filters on metadata tags",
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   "main": "lib.mjs",
   "scripts": {
     "cli": "node cli.mjs",
-    "db:generate": "drizzle-kit generate:sqlite"
+    "db:up": "drizzle-kit up",
+    "db:generate": "drizzle-kit generate"
   },
   "bin": {
     "music-metadata-search": "cli.mjs"
@@ -54,6 +55,6 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.2",
-    "drizzle-kit": "^0.20.17"
+    "drizzle-kit": "^0.30.1"
   }
 }

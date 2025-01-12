@@ -1,8 +1,6 @@
 {
-  "version": "5",
+  "version": "6",
   "dialect": "sqlite",
-  "id": "52e43dac-55f3-439e-bce6-e6965c7aa084",
-  "prevId": "fff394e3-19e3-4432-89fd-9f2b0d109b10",
   "tables": {
     "scans": {
       "name": "scans",
@@ -40,7 +38,8 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "scan_tracks": {
       "name": "scan_tracks",
@@ -79,32 +78,33 @@
         "scan_tracks_scanId_scans_id_fk": {
           "name": "scan_tracks_scanId_scans_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "scans",
           "columnsFrom": [
             "scanId"
           ],
+          "tableTo": "scans",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "scan_tracks_trackId_tracks_id_fk": {
           "name": "scan_tracks_trackId_tracks_id_fk",
           "tableFrom": "scan_tracks",
-          "tableTo": "tracks",
           "columnsFrom": [
             "trackId"
           ],
+          "tableTo": "tracks",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "tracks": {
       "name": "tracks",
@@ -177,13 +177,16 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "_meta": {
-    "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "52e43dac-55f3-439e-bce6-e6965c7aa084",
+  "prevId": "fff394e3-19e3-4432-89fd-9f2b0d109b10",
+  "views": {}
 }
