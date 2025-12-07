@@ -19,13 +19,13 @@
     "node": ">=20.0.0"
   },
   "type": "module",
-  "main": "lib.mjs",
+  "main": "lib.js",
   "scripts": {
-    "cli": "node cli.mjs"
+    "cli": "node cli.js"
   },
   "types": "./type.d.ts",
   "bin": {
-    "music-metadata-search": "cli.mjs"
+    "music-metadata-search": "cli.js"
   },
   "keywords": [
     "id3",

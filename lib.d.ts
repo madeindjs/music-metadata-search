@@ -52,9 +52,7 @@ export interface SearchOptions {
   logLevel?: string;
 }
 
-declare module "music-metadata-search" {
-  export function search(
-    path: string,
-    opts: SearchOptions,
-  ): AsyncGenerator<Track>;
-}
+export function search(
+  path: string,
+  opts: SearchOptions,
+): AsyncGenerator<Track>;

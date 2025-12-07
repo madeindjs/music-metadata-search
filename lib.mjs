@@ -1,1 +1,1 @@
-export { search } from "./lib/search.mjs";
+export { search } from "./lib/search.js";

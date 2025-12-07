@@ -2,8 +2,8 @@
 import { createOption, program } from "commander";
 import { readFile } from "node:fs/promises";
 import process, { cwd } from "node:process";
-import { logger } from "./lib/logger.mjs";
-import { search } from "./lib/search.mjs";
+import { logger } from "./lib/logger.js";
+import { search } from "./lib/search.js";
 
 const packageJson = JSON.parse(
   await readFile(new URL("./package.json", import.meta.url), {
@@ -134,7 +134,7 @@ program.parse();
 
 /**
  * @param {string | number | undefined} value
- * @returns {number | import('./type.ts').Range | undefined}
+ * @returns {number | import('./lib.js').Range | undefined}
  */
 function expandRange(value) {
   if (value === undefined) return undefined;
