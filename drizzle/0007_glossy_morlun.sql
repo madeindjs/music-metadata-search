@@ -1,1 +1,0 @@
-ALTER TABLE `tracks` ADD `comment` text;

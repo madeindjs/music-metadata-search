@@ -2,10 +2,7 @@
 import { createOption, program } from "commander";
 import { readFile } from "node:fs/promises";
 import process, { cwd } from "node:process";
-import { FILTERABLE_COLUMNS, QUERYABLE_COLUMNS } from "./lib/constants.mjs";
-import { Tracks } from "./lib/drizzle/schema.mjs";
 import { logger } from "./lib/logger.mjs";
-import { generateM3uPlaylist } from "./lib/m3u.mjs";
 import { search } from "./lib/search.mjs";
 
 const packageJson = JSON.parse(
@@ -23,13 +20,6 @@ const logLevelOption = createOption("--log-level [logLevel]", "Log level")
   .choices(Object.values(logger.levels.labels))
   .default("fatal");
 
-const ttlOption = createOption(
-  "--cache-scan-ttl [cacheScanTtl]",
-  "time to live for the cache (in seconds)",
-);
-ttlOption.defaultValue = 3_600;
-ttlOption.defaultValueDescription = "1 hour";
-
 const extensionsListOption = createOption(
   "--ext [ext...]",
   "Extensions of Audio files to scan",
@@ -44,38 +34,18 @@ const rangeDescription =
   "If a single value is provided, it will filter by `=`, you can also give a range like `1..10 to filter using `BETWEEN` operator";
 
 program
-  .option(
-    "-q, --query [genre]",
-    `Search the term everywhere (in ${QUERYABLE_COLUMNS.join(", ")})`,
-  )
-  .option(
-    "-w, --where [where]",
-    [
-      "SQL WHERE expression",
-      `You can filters on columns: ${FILTERABLE_COLUMNS.join(", ")}`,
-      `Example: \`${Tracks.genre.name} LIKE "%Rock%"\` AND duration between 60 AND 120`,
-    ].join("\n"),
-  )
+  .option("-q, --query [genre]", `Search the term everywhere)`)
   .option(
     "-g, --genre [genre]",
-    [
-      "Filter by genre of the track using `LIKE` operator",
-      "It's an alias of: `--where 'genre LIKE \"%Electro%\"'`",
-    ].join("\n"),
+    ["Filter by genre of the track using `LIKE` operator"].join("\n"),
   )
   .option(
     "-a, --artist [artist]",
-    [
-      "Filter by artist of the track using `LIKE` operator",
-      "It's an alias of: `--where 'artist LIKE \"%Daft%\"'`",
-    ].join("\n"),
+    ["Filter by artist of the track using `LIKE` operator"].join("\n"),
   )
   .option(
     "-b, --album [album]",
-    [
-      "Filter by album of the track using `LIKE` operator",
-      "It's an alias of: `--where 'album LIKE \"%Discovery%\"'`",
-    ].join("\n"),
+    ["Filter by album of the track using `LIKE` operator"].join("\n"),
   )
   .option(
     "-y, --year [year]",
@@ -83,17 +53,11 @@ program
   )
   .option(
     "-t, --title [title]",
-    [
-      "Title of the track to search using `LIKE` operator",
-      "It's an alias of: `--where 'title LIKE \"%Verdis%\"'`",
-    ].join("\n"),
+    ["Title of the track to search using `LIKE` operator"].join("\n"),
   )
   .option(
     "-c, --comment [comment]",
-    [
-      "Comment of the track to search using `LIKE` operator",
-      "It's an alias of: `--where 'comment LIKE \"%Verdis%\"'`",
-    ].join("\n"),
+    ["Comment of the track to search using `LIKE` operator"].join("\n"),
   )
   .option(
     "-d,--duration [duration]",
@@ -116,37 +80,51 @@ program
   .option("--musicbrainzAlbumId [musicbrainzAlbumId]")
   .option("--musicbrainzRecordingId [musicbrainzRecordingId]")
   .option("-l, --limit [limit]", "Limit the number of tracks returned")
-  .option(
-    "-s, --sort [order]",
-    [
-      "SQL ORDER BY expression",
-      `You can order on columns: ${FILTERABLE_COLUMNS.join(", ")}.`,
-      `Example: \`${Tracks.genre.name} DESC\``,
-    ].join("\n"),
-  )
   .addOption(formatOption)
   .addOption(extensionsListOption)
   .addOption(logLevelOption)
-  .addOption(ttlOption)
   .argument("[path]", "The directory of local files", cwd())
   .action(async (path, opts) => {
-    const results = await search(path, {
+    const tracks = search(path, {
       ...opts,
       year: expandRange(opts.year),
+      bpm: expandRange(opts.bpm),
+      bitrate: expandRange(opts.bitrate),
+      sampleRate: expandRange(opts.sampleRate),
+      duration: expandRange(opts.duration),
     });
-
     switch (opts.format) {
-      case "json":
-        process.stdout.write(JSON.stringify(results));
+      case "json": {
+        let isFirst = true;
+        process.stdout.write("[\n");
+        for await (const track of tracks) {
+          if (!isFirst) process.stdout.write(",\n");
+          process.stdout.write(JSON.stringify(track));
+          process.stdout.write("\n");
+          isFirst = false;
+        }
         break;
+      }
 
       case "txt":
-        for (const res of results) process.stdout.write(`${res.path}\n`);
+        for await (const track of tracks) {
+          process.stdout.write(`${track.path}\n`);
+        }
         break;
 
-      case "m3u":
-        process.stdout.write(generateM3uPlaylist(results));
+      case "m3u": {
+        const title = "Foo";
+        process.stdout.write("#EXTM3U\n");
+        process.stdout.write(`#PLAYLIST:${title}\n`);
+        process.stdout.write(`\n`);
+
+        for await (const track of tracks) {
+          process.stdout.write(`#EXTINF:0,${track.artist} - ${track.title}\n`);
+          process.stdout.write(`${track.path}\n`);
+          process.stdout.write(`\n`);
+        }
         break;
+      }
     }
   });
 
@@ -156,11 +134,14 @@ program.parse();
 
 /**
  * @param {string | number | undefined} value
- * @returns {number | Range | undefined}
+ * @returns {number | import('./type.ts').Range | undefined}
  */
 function expandRange(value) {
   if (value === undefined) return undefined;
   if (typeof value === "number") return value;
+
+  if (value.startsWith("<")) return [-Infinity, Number(value.slice(1))];
+  if (value.startsWith(">")) return [Number(value.slice(1)), Infinity];
 
   const split = value.split("..");
 
