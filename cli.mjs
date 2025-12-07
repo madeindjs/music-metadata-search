@@ -111,6 +111,9 @@ program
       "\n",
     ),
   )
+  .option("--musicbrainzTrackId [musicbrainzTrackId]")
+  .option("--musicbrainzArtistId [musicbrainzArtistId]")
+  .option("--musicbrainzAlbumId [musicbrainzAlbumId]")
   .option("-l, --limit [limit]", "Limit the number of tracks returned")
   .option(
     "-s, --sort [order]",

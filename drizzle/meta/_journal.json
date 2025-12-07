@@ -57,6 +57,13 @@
       "when": 1736708374831,
       "tag": "0007_glossy_morlun",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1765114787078,
+      "tag": "0008_even_tusk",
+      "breakpoints": true
     }
   ]
 }
