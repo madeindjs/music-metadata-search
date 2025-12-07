@@ -9,8 +9,6 @@ const tracks = search("/home/alexandre/Musique/", {
   logLevel: "debug",
   // Filter by title of the track to search using `LIKE` operator
   title: "One",
-  // Limit the number of tracks returned
-  limit: 10,
 });
 for await (const track of tracks) {
   console.log(track);
