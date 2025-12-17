@@ -1,6 +1,7 @@
 # Music Metadata Search
 
 [![npm version](https://badge.fury.io/js/music-metadata-search.svg)](https://badge.fury.io/js/music-metadata-search)
+[![jsr version](https://jsr-badge.deno.dev/@madeindjs/music-metadata-search/stable.svg)](https://jsr.io/@madeindjs/music-metadata-search)
 
 Search in your local music library using quick filter on metadata tags.
 
